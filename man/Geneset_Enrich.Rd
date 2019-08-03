@@ -25,7 +25,7 @@ Defaults to detectCores()-2}
 Normalization is typically carried out by methods like "EDASeq" for RNAseq data and "RMA" or "Quantile" methods for Microarrays.}
 }
 \value{
-data.frame holding geneset enrichment values for each geneset (columns) and for each sample (columns). 
+data.frame holding geneset enrichment values for each geneset (rows) and for each sample (columns). 
 If the geneset is of length 1, then a named vector of enrichment values.
 }
 \description{

@@ -21,7 +21,7 @@ When using platforms other than "ens", there will be some loss of information du
 \item{center}{Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to FALSE.}
 }
 \value{
-data.frame of ICR (measure of immune infiltrate) and Miracle scores (Rows) for each sample (Columns).
+data.frame of ICR (measure of immune infiltrate) and Miracle scores (Columns) for each sample (Rows).
 }
 \description{
 Calculates Geneset Enrichment for ICR geneset and Miracle scores

@@ -10,7 +10,7 @@
 #' @param n_cores Integer of length 1. Specifies the number of parallel cores running the function.
 #'	Defaults to detectCores()-2
 #' @param center Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to TRUE.
-#' @return data.frame holding geneset enrichment values for each geneset (columns) and for each sample (columns). 
+#' @return data.frame holding geneset enrichment values for each geneset (rows) and for each sample (columns). 
 #'	If the geneset is of length 1, then a named vector of enrichment values.
 #'
 #' @author Tolga Turan, \email{tolga.turan@abbvie.com}

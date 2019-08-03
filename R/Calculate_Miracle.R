@@ -11,7 +11,7 @@
 #'      If the expression matrix is based on IlluminaHT12v3 or IlluminaHT12v4 platforms, please use "ilmn"
 #'      When using platforms other than "ens", there will be some loss of information due to features not matching or multi-matching.
 #' @param center Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to FALSE.
-#' @return data.frame of ICR (measure of immune infiltrate) and Miracle scores (Rows) for each sample (Columns).
+#' @return data.frame of ICR (measure of immune infiltrate) and Miracle scores (Columns) for each sample (Rows).
 #' @author Tolga Turan, \email{tolga.turan@abbvie.com}
 #' @references \url{https://doi.org/10.1186/s40425-018-0355-5}
 #' @examples
