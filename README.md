@@ -22,8 +22,7 @@ Then install Miracle as follows:
 
 ``` {.r}
 library(devtools)
-install_github("turantx1/Miracle", host="pig.abbvienet.com/api/v3", 
-auth_token="cff1778f23dc72126f68e18c39b85bc853d35fc8")
+install_github("tolgaturan-github/Miracle")
 ```
 
 USAGE:
