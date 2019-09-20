@@ -100,7 +100,7 @@ Visualize Miracle Association with Response in GSE91061:
 ggplot(GSE91061_Miracle_Response, aes(x=Response, y=Miracle, colour=Response))+geom_boxplot(outlier.shape=NA)+geom_jitter(shape=16, position=position_jitter(0.2))
 ```
 
-_Similar to these examples, Miracle scores calculated by 'Calculate\_Miracle' function on RNAseq and Microarray datasets can be associated with Survival or Response_
+_Similar to these examples, Miracle scores calculated by the 'Calculate\_Miracle' function on normalized RNAseq or Microarray datasets, can be associated with Survival or Response attributes._
 
  
 

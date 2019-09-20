@@ -238,4 +238,4 @@ ggplot(GSE91061_Miracle_Response, aes(x=Response, y=Miracle, colour=Response))+g
 
 ![](README_files/figure-markdown_github/Visualize_response_association_Miracle-1.png)
 
-*Similar to these examples, Miracle scores calculated by 'Calculate\_Miracle' function on RNAseq and Microarray datasets can be associated with Survival or Response*
+*Similar to these examples, Miracle scores calculated by the 'Calculate\_Miracle' function on normalized RNAseq or Microarray datasets, can be associated with Survival or Response attributes.*
