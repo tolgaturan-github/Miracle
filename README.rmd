@@ -46,7 +46,7 @@ TCGA_BLCA_EDASeq_norm[1:5, 1:5]
 
 Calculate ICR and Miracle Scores and merge with survival data:
 
-``` {r calculate_miracle, results="hide"}
+``` {r calculate_miracle, results="hide", message=FALSE}
 TCGA_ICR_and_miracle_scores<-Calculate_Miracle(TCGA_BLCA_EDASeq_norm, "ens")
 ```
 
@@ -66,8 +66,41 @@ Calculate Survival association of Miracle in TCGA_BLCA Cohort:
 ``` {r survival_association_Miracle, echo=TRUE, eval=TRUE}
 coxph(Surv(Time, Status)~Miracle, data=TCGA_BLCA_Miracle_SURV)
 ```
-###Example2: Calculating Miracle Scores and Measuring Survival Association in TCGA-BLCA:
+###Example2: Calculating Miracle Scores and Measuring Immunotherapy Response Association in GSE91061 (Riaz et al.):
 
-_Similar to this example, Miracle scores calculated by 'Calculate\_Miracle' function can be merged with immunotherapy datasets with response outcomes._
+Load normalized gene expression and Survival Data for GSE91061
+``` {r load_data_GSE91061, echo=TRUE, eval=TRUE}
+data("GSE91061_PRETREATMENT_EDAseq_NORM","GSE91061_PRETREATMENT_Response",package="Miracle")
+head(GSE91061_PRETREATMENT_Response)
+GSE91061_PRETREATMENT_EDAseq_NORM[1:5, 1:5]
+```
+Calculate ICR and Miracle Scores and merge with response data:
+
+``` {r calculate_miracle_GSE91061, results="hide"}
+GSE91061_ICR_and_miracle_scores<-Calculate_Miracle(GSE91061_PRETREATMENT_EDAseq_NORM, "ens")
+```
+
+``` {r merge_data_GSE91061, echo=TRUE, eval=TRUE}
+head(GSE91061_ICR_and_miracle_scores)
+all(rownames(GSE91061_ICR_and_miracle_scores)==rownames(GSE91061_PRETREATMENT_Response))
+GSE91061_Miracle_Response<-cbind(GSE91061_PRETREATMENT_Response, GSE91061_ICR_and_miracle_scores)
+head(GSE91061_Miracle_Response)
+```
+
+Calculate Response association of Miracle in GSE91061:
+
+``` {r response_association_Miracle, echo=TRUE, eval=TRUE}
+t.test(Miracle~Response, data=GSE91061_Miracle_Response)
+
+```
+
+Visualize Miracle Association with Response in GSE91061:
+
+``` {r Visualize_response_association_Miracle, echo=TRUE, eval=TRUE}
+ggplot(GSE91061_Miracle_Response, aes(x=Response, y=Miracle, colour=Response))+geom_boxplot(outlier.shape=NA)+geom_jitter(shape=16, position=position_jitter(0.2))
+```
+
+_Similar to these examples, Miracle scores calculated by 'Calculate\_Miracle' function on RNAseq and Microarray datasets can be associated with Survival or Response_
 
  
+

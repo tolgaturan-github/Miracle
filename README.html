@@ -40,7 +40,7 @@ body {
 <p>To calculate Miracle score, use a gene expression matrix normalized by methods including but not limited to EDASeq for RNA-seq or Quantile or RMA for Microarrays.</p>
 <p>Please note that Miracle has not been tested on Nanostring platforms or RNAseq RPKM, FPKM or TPM normalizations.</p>
 <p>The accepted feature_identifiers are &quot;ens&quot; for Ensemble Gene Ids; &quot;u133p2&quot; for Affymetrix U133p2 or U133A probe_ids; &quot;entrez&quot; for Entrez Gene Ids; &quot;gene&quot; for Gene Symbols and &quot;ilmn&quot; for IlluminaHT12v3 or IlluminaHT12v4 microarray platforms.</p>
-<h3 id="example-calculating-miracle-scores-and-measuring-survival-association-in-tcga-blca">Example: Calculating Miracle Scores and Measuring Survival Association in TCGA-BLCA:</h3>
+<h3 id="example1-calculating-miracle-scores-and-measuring-survival-association-in-tcga-blca">Example1: Calculating Miracle Scores and Measuring Survival Association in TCGA-BLCA:</h3>
 <p><em>Please note that this vignette makes use of &quot;ggplot2&quot; and &quot;survival&quot; packages which are not necessary for installation but necessary to replicate this vignette.</em></p>
 <p>Load normalized gene expression and Survival Data for TCGA-BLCA</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(survival)
@@ -49,20 +49,20 @@ body {
 <span class="kw">data</span>(<span class="st">&quot;SURV_BLCA&quot;</span>,<span class="st">&quot;TCGA_BLCA_EDASeq_norm&quot;</span>,<span class="dt">package=</span><span class="st">&quot;Miracle&quot;</span>) 
 <span class="kw">head</span>(SURV_BLCA)</code></pre>
 <pre><code>##              ID Time Status
-## 8  TCGA.FD.A3B6 1005   TRUE
-## 10 TCGA.FD.A3B3  974   TRUE
-## 11 TCGA.DK.A3IU  706   TRUE
-## 14 TCGA.XF.AAN2 1869   TRUE
-## 15 TCGA.FD.A43Y  474   TRUE
-## 19 TCGA.ZF.A9RN  615   TRUE</code></pre>
+## 8  TCGA-FD-A3B6 1005   TRUE
+## 10 TCGA-FD-A3B3  974   TRUE
+## 11 TCGA-DK-A3IU  706   TRUE
+## 14 TCGA-XF-AAN2 1869   TRUE
+## 15 TCGA-FD-A43Y  474   TRUE
+## 19 TCGA-ZF-A9RN  615   TRUE</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">TCGA_BLCA_EDASeq_norm[<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>]</code></pre>
-<pre><code>##                 TCGA.FD.A3B6 TCGA.FD.A3B3 TCGA.DK.A3IU TCGA.XF.AAN2
+<pre><code>##                 TCGA-FD-A3B6 TCGA-FD-A3B3 TCGA-DK-A3IU TCGA-XF-AAN2
 ## ENSG00000000003        11.81        11.05         9.69        11.42
 ## ENSG00000000005         0.00         3.52         1.00         2.96
 ## ENSG00000000419        11.40        11.08        11.46        11.30
 ## ENSG00000000457         9.10         8.98         9.54         9.50
 ## ENSG00000000460         9.52         9.50         9.35         9.21
-##                 TCGA.FD.A43Y
+##                 TCGA-FD-A43Y
 ## ENSG00000000003        11.70
 ## ENSG00000000005         0.00
 ## ENSG00000000419        11.66
@@ -70,41 +70,34 @@ body {
 ## ENSG00000000460         9.13</code></pre>
 <p>Calculate ICR and Miracle Scores and merge with survival data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">TCGA_ICR_and_miracle_scores&lt;-<span class="kw">Calculate_Miracle</span>(TCGA_BLCA_EDASeq_norm, <span class="st">&quot;ens&quot;</span>)</code></pre>
-<pre><code>## Loading required package: doParallel
-
-## Loading required package: foreach
-
-## Loading required package: iterators
-
-## Loading required package: parallel</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(TCGA_ICR_and_miracle_scores)</code></pre>
-<pre><code>##                    ICR   Miracle
-## TCGA.FD.A3B6 0.8697658 0.9186238
-## TCGA.FD.A3B3 0.8831050 0.9057638
-## TCGA.DK.A3IU 0.9009755 0.9328145
-## TCGA.XF.AAN2 0.8475331 0.8979655
-## TCGA.FD.A43Y 0.8056991 0.8128846
-## TCGA.ZF.A9RN 0.8638784 0.9093093</code></pre>
+<pre><code>##                    ICR       Pos       Neg   Miracle
+## TCGA-FD-A3B6 0.9542586 0.6648479 0.7237434 0.9186238
+## TCGA-FD-A3B3 0.9687819 0.7193332 0.7941730 0.9057638
+## TCGA-DK-A3IU 0.9796718 0.7208531 0.7727721 0.9328145
+## TCGA-XF-AAN2 0.9059568 0.6154979 0.6854360 0.8979655
+## TCGA-FD-A43Y 0.7724496 0.6112264 0.7519228 0.8128846
+## TCGA-ZF-A9RN 0.9280430 0.6243175 0.6865843 0.9093093</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">rownames</span>(TCGA_ICR_and_miracle_scores)==SURV_BLCA[,<span class="dv">1</span>])</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">TCGA_BLCA_Miracle_SURV&lt;-<span class="kw">cbind</span>(SURV_BLCA, TCGA_ICR_and_miracle_scores)
 <span class="kw">head</span>(TCGA_BLCA_Miracle_SURV)</code></pre>
-<pre><code>##              ID Time Status       ICR   Miracle
-## 8  TCGA.FD.A3B6 1005   TRUE 0.8697658 0.9186238
-## 10 TCGA.FD.A3B3  974   TRUE 0.8831050 0.9057638
-## 11 TCGA.DK.A3IU  706   TRUE 0.9009755 0.9328145
-## 14 TCGA.XF.AAN2 1869   TRUE 0.8475331 0.8979655
-## 15 TCGA.FD.A43Y  474   TRUE 0.8056991 0.8128846
-## 19 TCGA.ZF.A9RN  615   TRUE 0.8638784 0.9093093</code></pre>
+<pre><code>##              ID Time Status       ICR       Pos       Neg   Miracle
+## 8  TCGA-FD-A3B6 1005   TRUE 0.9542586 0.6648479 0.7237434 0.9186238
+## 10 TCGA-FD-A3B3  974   TRUE 0.9687819 0.7193332 0.7941730 0.9057638
+## 11 TCGA-DK-A3IU  706   TRUE 0.9796718 0.7208531 0.7727721 0.9328145
+## 14 TCGA-XF-AAN2 1869   TRUE 0.9059568 0.6154979 0.6854360 0.8979655
+## 15 TCGA-FD-A43Y  474   TRUE 0.7724496 0.6112264 0.7519228 0.8128846
+## 19 TCGA-ZF-A9RN  615   TRUE 0.9280430 0.6243175 0.6865843 0.9093093</code></pre>
 <p>Calculate Survival association of ICR in TCGA_BLCA Cohort:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coxph</span>(<span class="kw">Surv</span>(Time, Status)~ICR, <span class="dt">data=</span>TCGA_BLCA_Miracle_SURV)</code></pre>
 <pre><code>## Call:
 ## coxph(formula = Surv(Time, Status) ~ ICR, data = TCGA_BLCA_Miracle_SURV)
 ## 
 ##        coef exp(coef) se(coef)      z     p
-## ICR -0.9857    0.3732   0.9793 -1.007 0.314
+## ICR -0.2723    0.7616   0.2201 -1.237 0.216
 ## 
-## Likelihood ratio test=1  on 1 df, p=0.317
+## Likelihood ratio test=1.54  on 1 df, p=0.2154
 ## n= 405, number of events= 178</code></pre>
 <p>Calculate Survival association of Miracle in TCGA_BLCA Cohort:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coxph</span>(<span class="kw">Surv</span>(Time, Status)~Miracle, <span class="dt">data=</span>TCGA_BLCA_Miracle_SURV)</code></pre>
@@ -116,7 +109,69 @@ body {
 ## 
 ## Likelihood ratio test=22.36  on 1 df, p=2.262e-06
 ## n= 405, number of events= 178</code></pre>
-<p><em>Similar to this example, Miracle scores calculated by 'Calculate_Miracle' function can be merged with immunotherapy datasets with response outcomes.</em></p>
+<h3 id="example2-calculating-miracle-scores-and-measuring-immunotherapy-response-association-in-gse91061-riaz-et-al.">Example2: Calculating Miracle Scores and Measuring Immunotherapy Response Association in GSE91061 (Riaz et al.):</h3>
+<p>Load normalized gene expression and Survival Data for GSE91061</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;GSE91061_PRETREATMENT_EDAseq_NORM&quot;</span>,<span class="st">&quot;GSE91061_PRETREATMENT_Response&quot;</span>,<span class="dt">package=</span><span class="st">&quot;Miracle&quot;</span>)
+<span class="kw">head</span>(GSE91061_PRETREATMENT_Response)</code></pre>
+<pre><code>##                   GSM Treat    Response
+## SRR5088813 GSM2420259   Pre Nonresponse
+## SRR5088815 GSM2420261   Pre    Response
+## SRR5088819 GSM2420265   Pre Nonresponse
+## SRR5088821 GSM2420267   Pre    Response
+## SRR5088822 GSM2420268   Pre    Response
+## SRR5088824 GSM2420270   Pre    Response</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">GSE91061_PRETREATMENT_EDAseq_NORM[<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>]</code></pre>
+<pre><code>##                 SRR5088813 SRR5088815 SRR5088819 SRR5088821 SRR5088822
+## ENSG00000000003   9.929819   9.966695  12.124222   9.766977  11.311698
+## ENSG00000000005   1.070389   0.000000   0.000000   3.307429   0.000000
+## ENSG00000000419  10.363252  10.207071  10.297169  11.174735  10.494006
+## ENSG00000000457   9.145602   8.855620  10.048168   9.275744   8.769820
+## ENSG00000000460   8.886140   9.223518   9.676741   9.085881   7.646716</code></pre>
+<p>Calculate ICR and Miracle Scores and merge with response data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">GSE91061_ICR_and_miracle_scores&lt;-<span class="kw">Calculate_Miracle</span>(GSE91061_PRETREATMENT_EDAseq_NORM, <span class="st">&quot;ens&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(GSE91061_ICR_and_miracle_scores)</code></pre>
+<pre><code>##                   ICR       Pos       Neg   Miracle
+## SRR5088813 0.93413303 0.6323827 0.6461940 0.9786268
+## SRR5088815 0.95142806 0.6132742 0.7249548 0.8459482
+## SRR5088819 0.03772541 0.4471174 0.6416505 0.6968239
+## SRR5088821 0.92857105 0.6531432 0.7345226 0.8892078
+## SRR5088822 0.62441401 0.5737313 0.7152098 0.8021861
+## SRR5088824 0.96387160 0.6952714 0.7584005 0.9167601</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">rownames</span>(GSE91061_ICR_and_miracle_scores)==<span class="kw">rownames</span>(GSE91061_PRETREATMENT_Response))</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">GSE91061_Miracle_Response&lt;-<span class="kw">cbind</span>(GSE91061_PRETREATMENT_Response, GSE91061_ICR_and_miracle_scores)
+<span class="kw">head</span>(GSE91061_Miracle_Response)</code></pre>
+<pre><code>##                   GSM Treat    Response        ICR       Pos       Neg
+## SRR5088813 GSM2420259   Pre Nonresponse 0.93413303 0.6323827 0.6461940
+## SRR5088815 GSM2420261   Pre    Response 0.95142806 0.6132742 0.7249548
+## SRR5088819 GSM2420265   Pre Nonresponse 0.03772541 0.4471174 0.6416505
+## SRR5088821 GSM2420267   Pre    Response 0.92857105 0.6531432 0.7345226
+## SRR5088822 GSM2420268   Pre    Response 0.62441401 0.5737313 0.7152098
+## SRR5088824 GSM2420270   Pre    Response 0.96387160 0.6952714 0.7584005
+##              Miracle
+## SRR5088813 0.9786268
+## SRR5088815 0.8459482
+## SRR5088819 0.6968239
+## SRR5088821 0.8892078
+## SRR5088822 0.8021861
+## SRR5088824 0.9167601</code></pre>
+<p>Calculate Response association of Miracle in GSE91061:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(Miracle~Response, <span class="dt">data=</span>GSE91061_Miracle_Response)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Miracle by Response
+## t = -2.3694, df = 46.852, p-value = 0.02199
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.116405792 -0.009497369
+## sample estimates:
+## mean in group Nonresponse    mean in group Response 
+##                 0.8000765                 0.8630281</code></pre>
+<p>Visualize Miracle Association with Response in GSE91061:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(GSE91061_Miracle_Response, <span class="kw">aes</span>(<span class="dt">x=</span>Response, <span class="dt">y=</span>Miracle, <span class="dt">colour=</span>Response))+<span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape=</span><span class="ot">NA</span>)+<span class="kw">geom_jitter</span>(<span class="dt">shape=</span><span class="dv">16</span>, <span class="dt">position=</span><span class="kw">position_jitter</span>(<span class="fl">0.2</span>))</code></pre>
+<p><img src="data:image/png;base64,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ZzL919dNXn/99U6dOrVv3/6hhx4qKCgQQhw6dGjQoEGzZ8+OjY1NSEjIysoSQvz000+DBw+eMmXKXXfdJYT44IMPunTp0q5du/vuu+/8+fNCiGvXrj388MM333xzmzZtlixZIoTYuHHjn/70pyFDhkRGRiYmJh4/frxBI1bv0Oa4DVLHMXhfX1+lERsbu2fPnttvvz0+Pn78+PENHabBZXEenwvQaDSCn4VL0mrr+GgOyWi1Wln/JmquXTWdyqvcuLaW51TZa/71gqioqLPnSZMmbd++ffny5XPnzlW2ZGVlrVix4ttvvw0LC5s7d+6sWbPWr18vhPj6668XLly4fPnypUuXvvrqq8rt1jIyMkaPHv2///u/hw4dWrRoUWZmZkhIyOrVq0ePHp2RkbF58+aCgoIzZ8789ttvw4cPnzZtmhDi/fff37dvX/fu3dPT08eOHbtv3776j1i9wzNnzlQft0HvbR2/MX/4wx9efPHFqKioHj16zJkzZ9KkSTt37vTy8mrQGDfAx8fH0UOgTkrA87NwQbL+W4+aeHh4SPs30SyE0SBKaz21q8peQ6UQ9fpawbvvvtu7d+/k5GTl4e7du8eMGRMWFiaEePLJJ+Pj45XtUVFR/fr1E0L06dNnz549ysY2bdooV3H95z//WVRUdP/99wshTCZTSUmJECIuLm7p0qVTp0698847MzMzlZ/OXXfd1b17d6XzBQsWFBcX13/E6h3aHLdB6vhn4pVXXrn//vt37NgxefJkLy+v8PDwioqKF154oaHDNNS1a9ccPYR7CVz2/+95yZxnnTNogMmk5WfhkirqMX2BTCorK13tb6JOp7NLP+aAAG1E6ypn0VdZlvf605+tH9b/LPqbbrpp+fLljzzyyMiRI4UQZrNZmbcIIbRardFoVNoBAQHVX9uyZUulYTQaBw0atHbtWiFEZWXluXPnhBA9e/Y8evToF1988eWXX86ePfu7774T/5kUKQ2tVmswGOo/YvUObY7bIHUs9HXq1OnIkSPTpk3z9vbOyMj4+9//vmfPnoULFzZ0GNiRddgDgHx80lb6pK20btywlJSUdu3avf7660KIgQMHvv/++4WFhUKI11577e67765PDwMHDvz8889//vlnk8m0cOFCJQEXL178yCOPDBgwIC0trUWLFt9//70QYteuXYcPHxZCrF69unPnzsHBwfUfsXqHNsdtkDoC/oEHHvj222+VDyD+/v5DhgxRVhUAAHCoRka7xVtvvWUwGIQQ/fv3T01NTUhI6NSpU15eXnp6en1eHhsbu3Tp0nvuuScqKurQoUPKzVQnT55cWFgYGRnZvn3722+/XTkKkJCQMH369Ojo6M2bN2/cuLFBI1bv0Oa4DaKp/W48d911V0JCwqJFixrabyPp9Xonj+jiqszanbNKH7D3K+2JY8XjJzthLDTIqoJLy/WF1/rdpnYhjaLJ+EZpmJMS1K3ExTXP2vfnlsEzQoPVLuS/hIQ09jpLRqPx+vXrnu+96VVtib52yhJ9xYynfX19nXBOWD1t3Lhx9+7dyoq6i6jjGPzixYsff/zxkpKSfv36KfebUSQmJjq4MPyXkjnPWjLeacfgAcexpLvSdpeM50OJ3Wk0wvhTtvFIbgNeU1kp/vMNL9SijoBXFuSPHz++atUq6+2VldLeuMllkeuAutz0Q4mLMyQN0l7Ir75dc/2adl+WqWdvc3DL6nttblTXmDFjxowZo3YV/6WOgCfIAQCOY27X3tiuffXtmkt67b4sU8ytpugOzq9KDrYDPjs7Oyws7Oabb87Ozrb5hLi4OEdWBaAJcdBU2HrCzWwbTZDtgO/du/f06dPT09N79+5t8wm1n5oHALVzcuLafUWdTwyOZtb5mVsEm5sFqV2IG7Md8GVlZR4eHkII5asFAGCtaZ5r1qT+Z51Ao9HUdg68V5CY/lTtR5G5ZnPtbL97dd6Bp2vXrg4oBoAb4Fwz2IVWq/XlZHhHsh3w3bp1q/1lLNEDcHHmpISmudLgLkwmU1lZWWN68Pb25r4MtbD91rRp0+bChQsJCQkPPvjg4MGD7XXNYQBwJnLdlZnNZsu12asrNpqGn/j5nXZto328a+nBMaVJwvYBjHPnzmVlZfXp0+e1116Lj49/6qmn9u/fHxoaGvkfTq4SgOuwTk13T1BNxjeWP2rXgv/yW2Xl/mvXT5dzX6UbZzvgNRrNbbfdtnz58p9//jkzMzM6OnrBggWhoaEPPfTQ5s2bb+CmdQBkYk5KUP6oXQiAGtV99CI2NjY2Nvall146dOjQtm3bZs+e/dhjj5WWljqhOACwL+uj8lVm7ZwwqIqc66U/XbNxM/iCSoMQ4osrxWfKy6vvjfbxSWxm4x6vsFbf0xPy8vI++eSTHTt2XLx4sX///g6tCQAcofr5/1wMR3Vzz+b/21bAK974zfaNxyK8vI537+KwoiRRR8AfO3Zs27ZtW7duzc3NvfPOO5944okHHnggNDTUOcUBgENZMp50V4tRmMdGhP31lo71f8lzp8++mX/BcSVJw3bAHzly5MMPP9y6devRo0cHDhyYmpo6fPjwli1d7uL+ANBIRLuUWrVqVVlZ6eXlZTKZKisr77333jVr1vj5+aldl1PZDviYmBiNRpOQkPDSSy8pd4n9xz/+Yf2Exx9/3BnVAYD9VD/uDlfWyLMivvzyyx49egghLly4MHz48FWrVs2bN89+1bkB2wEfEREhhMjLy3v11VdtPoGAB+COmK+7BcvnMLscQGnVqlVSUtIvv/wihPjggw+ee+65srKyrl27vv32261bt7527dr48eO//fZbk8n05z//ef78+Rs3bvz6668vXLiQm5sbFRW1Zs2aTp06CSFef/31lStXGo3GXr16vfnmm6GhoYcOHZoxY0b37t2/+uornU6XlpZ2xx13VO/Q5riNfY/qwfbX5C7UxQmVQUqBy14IXPaC2lUAcBV6gzGzqHjkoWPWf6o8p8reD38rvG4y1X+IEydOZGRkDB069NChQ4sWLcrMzDx58uTgwYNHjx4thNi8eXNBQcGZM2eys7N37Nhx9epVIcT777+/dOnSM2fODB8+fOzYsUKIrKysFStWZGVlnTx5Mjo6etasWUrnX3/99f3335+Tk3PfffcpU+LqHdoc1wm4yB+cxxLtgcteKJnzrLrFuLsKs7l39k9qVwFnKG1ImLmdSrO53GT8udZr1lbZe9loMNXjEnYDBw5UjsH/9ttvKSkpd999d3p6elFR0f333y+EMJlMyjVd4uLili5dOnXq1DvvvDMzM9PHx0cIcdddd3Xv3l0I8eSTTy5YsKC4uHj37t1jxowJCwtTNsbHxyujREVF9evXTwjRp0+fPXv22Ozwn//8Z/VxnYCAhzrI+EYym0V2yVW1q4AzeGg0apfgQK28PLsGBlY5i77KqRL743pYP6znWfSWY/Dnz59PSkr67LPPjEbjoEGD1q5dK4SorKw8d+6cEKJnz55Hjx794osvvvzyy9mzZ3/33XdCCM1/3nONRqPVag0Gg9lstmzUarWWi+wGBFT9On71Dm2O6wTcaw8A4Fqsr5PY+NMmWrdunZiYePDgwYEDB37+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" /></p>
+<p><em>Similar to these examples, Miracle scores calculated by 'Calculate_Miracle' function on RNAseq and Microarray datasets can be associated with Survival or Response</em></p>
 
 </body>
 </html>

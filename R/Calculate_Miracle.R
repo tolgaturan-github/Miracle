@@ -12,6 +12,7 @@
 #'      When using platforms other than "ens", there will be some loss of information due to features not matching or multi-matching.
 #' @param center Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to FALSE.
 #' @return data.frame of ICR (measure of immune infiltrate) and Miracle scores (Columns) for each sample (Rows).
+
 #' @author Tolga Turan, \email{tolga.turan@abbvie.com}
 #' @references \url{https://doi.org/10.1186/s40425-018-0355-5}
 #' @examples
@@ -33,7 +34,7 @@ Calculate_Miracle<-function(matrix, platform="ens", center=FALSE){
                 geneset_list1<-geneset_ilmn}
 
       
-	yaGST1_matrix2<-rbind(Geneset_Enrich(matrix, geneset_list1[1], center=TRUE),Geneset_Enrich(matrix, geneset_list1[2:3], center=center))
+	yaGST1_matrix2<-rbind(ICR=Geneset_Enrich(matrix, geneset_list1[1], center=TRUE),Geneset_Enrich(matrix, geneset_list1[2:3], center=center))
         yaGST1_df1<-data.frame(t(yaGST1_matrix2))
         yaGST1_df1$Miracle<-yaGST1_df1$Pos/yaGST1_df1$Neg
         #yaGST1_df1<-yaGST1_df1[,-c(2,3)]
