@@ -31,7 +31,7 @@ Please note that Miracle has not been tested on Nanostring platforms or RNAseq R
 
 The accepted feature_identifiers are "ens" for Ensemble Gene Ids; "u133p2" for Affymetrix U133p2 or U133A probe_ids; "entrez" for Entrez Gene Ids; "gene" for Gene Symbols and "ilmn" for IlluminaHT12v3 or IlluminaHT12v4 microarray platforms. 
 
-###Example: Calculating Miracle Scores and Measuring Survival Association in TCGA-BLCA:
+###Example1: Calculating Miracle Scores and Measuring Survival Association in TCGA-BLCA:
 _Please note that this vignette makes use of "ggplot2" and "survival" packages which are not necessary for installation but necessary to replicate this vignette._
 
 Load normalized gene expression and Survival Data for TCGA-BLCA
@@ -66,6 +66,7 @@ Calculate Survival association of Miracle in TCGA_BLCA Cohort:
 ``` {r survival_association_Miracle, echo=TRUE, eval=TRUE}
 coxph(Surv(Time, Status)~Miracle, data=TCGA_BLCA_Miracle_SURV)
 ```
+###Example2: Calculating Miracle Scores and Measuring Survival Association in TCGA-BLCA:
 
 _Similar to this example, Miracle scores calculated by 'Calculate\_Miracle' function can be merged with immunotherapy datasets with response outcomes._
 
