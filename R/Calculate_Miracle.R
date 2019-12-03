@@ -38,5 +38,6 @@ Calculate_Miracle<-function(matrix, platform="ens", center=FALSE){
         yaGST1_df1<-data.frame(t(yaGST1_matrix2))
         yaGST1_df1$Miracle<-yaGST1_df1$Pos/yaGST1_df1$Neg
         #yaGST1_df1<-yaGST1_df1[,-c(2,3)]
+	colnames(yaGST1_df1)[2:3]<-c("IE_Specific", "ID_Specific")
 	yaGST1_df1
         }
