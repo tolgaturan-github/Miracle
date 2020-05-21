@@ -40,11 +40,15 @@ Geneset_Enrich<-function(matrix1, geneset_list, verbose=TRUE, center=TRUE, n_cor
         m1t<-t(matrix1)
         m1t_l1<-split(m1t, rownames(m1t))
         m1t_l2<-lapply(m1t_l1, function(x) setNames(x, rownames(matrix1)))
-
+	if(.Platform$OS.type == "unix") {
         yaGST1_list1<-mclapply(m1t_l2, function(x) {rL<-sort(x, decreasing=TRUE)
                                                    sapply(geneset_list, function(y) mwwGST(rL, y, minLenGeneSet=1)[7:11])}, mc.cores=n_cores)
-
-
+	}
+	else{
+	yaGST1_list1<-parLapply(m1t_l2, function(x) {rL<-sort(x, decreasing=TRUE)
+                                                   sapply(geneset_list, function(y) mwwGST(rL, y, minLenGeneSet=1)[7:11])})
+	}
+	
         yaGST1_list2<-lapply(yaGST1_list1, function(x) data.frame(x))
         yaGST1_matrix1<-sapply(yaGST1_list2, function(x) sapply(x, function(y) y[[2]]))
         if (!is.null(dim(yaGST1_matrix1))){
