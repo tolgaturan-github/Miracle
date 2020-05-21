@@ -45,7 +45,7 @@ Geneset_Enrich<-function(matrix1, geneset_list, verbose=TRUE, center=TRUE, n_cor
                                                    sapply(geneset_list, function(y) mwwGST(rL, y, minLenGeneSet=1)[7:11])}, mc.cores=n_cores)
 	}
 	else{
-	yaGST1_list1<-parLapply(m1t_l2, function(x) {rL<-sort(x, decreasing=TRUE)
+	yaGST1_list1<-lapply(m1t_l2, function(x) {rL<-sort(x, decreasing=TRUE)
                                                    sapply(geneset_list, function(y) mwwGST(rL, y, minLenGeneSet=1)[7:11])})
 	}
 	
