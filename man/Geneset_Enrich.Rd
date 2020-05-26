@@ -5,8 +5,13 @@
 \title{Geneset Enrichment (GSE)
 Calculates single sample GSE scores using "yaGST" method}
 \usage{
-Geneset_Enrich(matrix1, geneset_list, verbose = TRUE, center = TRUE,
-  n_cores = detectCores() - 2)
+Geneset_Enrich(
+  matrix1,
+  geneset_list,
+  verbose = TRUE,
+  center = TRUE,
+  n_cores = 1
+)
 }
 \arguments{
 \item{geneset_list}{a List of gene/Transcript features. 
@@ -18,7 +23,7 @@ If there are large numbers of genesets it can be set to FALSE}
 \item{center}{Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to TRUE.}
 
 \item{n_cores}{Integer of length 1. Specifies the number of parallel cores running the function.
-Defaults to detectCores()-2}
+Defaults to 1}
 
 \item{matrix}{Numeric matrix of normalized gene expression values with unique column and rownames. 
     This matrix holds the "Gene/Transcript Features" on the rows and the "Samples" on the columns. 

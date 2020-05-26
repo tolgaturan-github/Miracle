@@ -8,7 +8,7 @@
 #' @param verbose Logical of length 1. User can choose to display messages. Defaults to TRUE. 
 #'	If there are large numbers of genesets it can be set to FALSE
 #' @param n_cores Integer of length 1. Specifies the number of parallel cores running the function.
-#'	Defaults to detectCores()-2
+#'	Defaults to 1
 #' @param center Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to TRUE.
 #' @return data.frame holding geneset enrichment values for each geneset (rows) and for each sample (columns). 
 #'	If the geneset is of length 1, then a named vector of enrichment values.
@@ -21,7 +21,7 @@
 #' @export
 #'
 
-Geneset_Enrich<-function(matrix1, geneset_list, verbose=TRUE, center=TRUE, n_cores=detectCores()-2){
+Geneset_Enrich<-function(matrix1, geneset_list, verbose=TRUE, center=TRUE, n_cores=1){
         for (i in 1:length(geneset_list)){
                         if (verbose) {if(any(!geneset_list[[i]] %in% rownames(matrix1))){
                                 print(paste0("IDs", geneset_list[[i]][!geneset_list[[i]] %in% rownames(matrix1)], " not present in the expression matrix for the geneset ",names(geneset_list)[i]))}
