@@ -35,7 +35,7 @@ Calculate_Miracle<-function(matrix, platform="ens", center=FALSE, n_cores=1){
                 geneset_list1<-geneset_ilmn}
 
       
-	yaGST1_matrix2<-rbind(ICR=Geneset_Enrich(matrix, geneset_list1[1], center=TRUE),Geneset_Enrich(matrix, geneset_list1[2:3], center=center, n_cores=n_cores))
+	yaGST1_matrix2<-rbind(ICR=Geneset_Enrich(matrix, geneset_list1[1], center=TRUE, n_cores=n_cores),Geneset_Enrich(matrix, geneset_list1[2:3], center=center, n_cores=n_cores))
         yaGST1_df1<-data.frame(t(yaGST1_matrix2))
         yaGST1_df1$Miracle<-yaGST1_df1$Pos/yaGST1_df1$Neg
         #yaGST1_df1<-yaGST1_df1[,-c(2,3)]
