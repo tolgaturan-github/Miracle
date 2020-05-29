@@ -11,6 +11,7 @@
 #'      If the expression matrix is based on IlluminaHT12v3 or IlluminaHT12v4 platforms, please use "ilmn"
 #'      When using platforms other than "ens", there will be some loss of information due to features not matching or multi-matching.
 #' @param center Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to FALSE.
+#' @param n_cores integer of length 1. Number of parallel cores to use.
 #' @return data.frame of ICR (measure of immune infiltrate) and Miracle scores (Columns) for each sample (Rows).
 
 #' @author Tolga Turan, \email{tolga.turan@abbvie.com}
@@ -21,7 +22,7 @@
 #' @export
 #'
 
-Calculate_Miracle<-function(matrix, platform="ens", center=FALSE){
+Calculate_Miracle<-function(matrix, platform="ens", center=FALSE, n_cores=1){
         if (platform=="ens"){
                 geneset_list1<-geneset_list}
         else if (platform=="u133p2"){
@@ -34,7 +35,7 @@ Calculate_Miracle<-function(matrix, platform="ens", center=FALSE){
                 geneset_list1<-geneset_ilmn}
 
       
-	yaGST1_matrix2<-rbind(ICR=Geneset_Enrich(matrix, geneset_list1[1], center=TRUE),Geneset_Enrich(matrix, geneset_list1[2:3], center=center))
+	yaGST1_matrix2<-rbind(ICR=Geneset_Enrich(matrix, geneset_list1[1], center=TRUE),Geneset_Enrich(matrix, geneset_list1[2:3], center=center, n_cores=n_cores))
         yaGST1_df1<-data.frame(t(yaGST1_matrix2))
         yaGST1_df1$Miracle<-yaGST1_df1$Pos/yaGST1_df1$Neg
         #yaGST1_df1<-yaGST1_df1[,-c(2,3)]

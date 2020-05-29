@@ -4,7 +4,7 @@
 \alias{Calculate_Miracle}
 \title{Mediators of Immune Response Against Cancer in soLid microEnvironments (MIRACLE)}
 \usage{
-Calculate_Miracle(matrix, platform = "ens", center = FALSE)
+Calculate_Miracle(matrix, platform = "ens", center = FALSE, n_cores = 1)
 }
 \arguments{
 \item{matrix}{Numeric matrix of normalized gene expression values.
@@ -19,6 +19,8 @@ If the expression matrix is based on IlluminaHT12v3 or IlluminaHT12v4 platforms,
 When using platforms other than "ens", there will be some loss of information due to features not matching or multi-matching.}
 
 \item{center}{Logical of length 1. User can choose whether to mean center the expression matrix. Defaults to FALSE.}
+
+\item{n_cores}{integer of length 1. Number of parallel cores to use.}
 }
 \value{
 data.frame of ICR (measure of immune infiltrate) and Miracle scores (Columns) for each sample (Rows).
