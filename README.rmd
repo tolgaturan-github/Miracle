@@ -27,7 +27,7 @@ install_github("tolgaturan-github/Miracle")
 ##USAGE:
 To calculate Miracle score, use a gene expression matrix normalized by methods including but not limited to EDASeq for RNA-seq or Quantile or RMA for Microarrays.
  
-Please note that Miracle has not been tested on Nanostring platforms or RNAseq RPKM, FPKM or TPM normalizations.
+Please note that Miracle has not been tested on Nanostring platforms or RNAseq RPKM or FPKM normalizations.
 
 The accepted feature_identifiers are "ens" for Ensemble Gene Ids; "u133p2" for Affymetrix U133p2 or U133A probe_ids; "entrez" for Entrez Gene Ids; "gene" for Gene Symbols and "ilmn" for IlluminaHT12v3 or IlluminaHT12v4 microarray platforms. 
 

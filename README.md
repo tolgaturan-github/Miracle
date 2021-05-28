@@ -30,7 +30,7 @@ USAGE:
 
 To calculate Miracle score, use a gene expression matrix normalized by methods including but not limited to EDASeq for RNA-seq or Quantile or RMA for Microarrays.
 
-Please note that Miracle has not been tested on Nanostring platforms or RNAseq RPKM, FPKM or TPM normalizations.
+Please note that Miracle has not been tested on Nanostring platforms or RNAseq RPKM or FPKM normalizations.
 
 The accepted feature\_identifiers are "ens" for Ensemble Gene Ids; "u133p2" for Affymetrix U133p2 or U133A probe\_ids; "entrez" for Entrez Gene Ids; "gene" for Gene Symbols and "ilmn" for IlluminaHT12v3 or IlluminaHT12v4 microarray platforms.
 
@@ -83,13 +83,13 @@ TCGA_ICR_and_miracle_scores<-Calculate_Miracle(TCGA_BLCA_EDASeq_norm, "ens")
 head(TCGA_ICR_and_miracle_scores)
 ```
 
-    ##                    ICR       Pos       Neg   Miracle
-    ## TCGA-FD-A3B6 0.9542586 0.6648479 0.7237434 0.9186238
-    ## TCGA-FD-A3B3 0.9687819 0.7193332 0.7941730 0.9057638
-    ## TCGA-DK-A3IU 0.9796718 0.7208531 0.7727721 0.9328145
-    ## TCGA-XF-AAN2 0.9059568 0.6154979 0.6854360 0.8979655
-    ## TCGA-FD-A43Y 0.7724496 0.6112264 0.7519228 0.8128846
-    ## TCGA-ZF-A9RN 0.9280430 0.6243175 0.6865843 0.9093093
+    ##                    ICR IE_Specific ID_Specific   Miracle
+    ## TCGA-FD-A3B6 0.9542586   0.6648479   0.7237434 0.9186238
+    ## TCGA-FD-A3B3 0.9687819   0.7193332   0.7941730 0.9057638
+    ## TCGA-DK-A3IU 0.9796718   0.7208531   0.7727721 0.9328145
+    ## TCGA-XF-AAN2 0.9059568   0.6154979   0.6854360 0.8979655
+    ## TCGA-FD-A43Y 0.7724496   0.6112264   0.7519228 0.8128846
+    ## TCGA-ZF-A9RN 0.9280430   0.6243175   0.6865843 0.9093093
 
 ``` {.r}
 all(rownames(TCGA_ICR_and_miracle_scores)==SURV_BLCA[,1])
@@ -102,13 +102,13 @@ TCGA_BLCA_Miracle_SURV<-cbind(SURV_BLCA, TCGA_ICR_and_miracle_scores)
 head(TCGA_BLCA_Miracle_SURV)
 ```
 
-    ##              ID Time Status       ICR       Pos       Neg   Miracle
-    ## 8  TCGA-FD-A3B6 1005   TRUE 0.9542586 0.6648479 0.7237434 0.9186238
-    ## 10 TCGA-FD-A3B3  974   TRUE 0.9687819 0.7193332 0.7941730 0.9057638
-    ## 11 TCGA-DK-A3IU  706   TRUE 0.9796718 0.7208531 0.7727721 0.9328145
-    ## 14 TCGA-XF-AAN2 1869   TRUE 0.9059568 0.6154979 0.6854360 0.8979655
-    ## 15 TCGA-FD-A43Y  474   TRUE 0.7724496 0.6112264 0.7519228 0.8128846
-    ## 19 TCGA-ZF-A9RN  615   TRUE 0.9280430 0.6243175 0.6865843 0.9093093
+    ##              ID Time Status       ICR IE_Specific ID_Specific   Miracle
+    ## 8  TCGA-FD-A3B6 1005   TRUE 0.9542586   0.6648479   0.7237434 0.9186238
+    ## 10 TCGA-FD-A3B3  974   TRUE 0.9687819   0.7193332   0.7941730 0.9057638
+    ## 11 TCGA-DK-A3IU  706   TRUE 0.9796718   0.7208531   0.7727721 0.9328145
+    ## 14 TCGA-XF-AAN2 1869   TRUE 0.9059568   0.6154979   0.6854360 0.8979655
+    ## 15 TCGA-FD-A43Y  474   TRUE 0.7724496   0.6112264   0.7519228 0.8128846
+    ## 19 TCGA-ZF-A9RN  615   TRUE 0.9280430   0.6243175   0.6865843 0.9093093
 
 Calculate Survival association of ICR in TCGA\_BLCA Cohort:
 
@@ -178,13 +178,13 @@ GSE91061_ICR_and_miracle_scores<-Calculate_Miracle(GSE91061_PRETREATMENT_EDAseq_
 head(GSE91061_ICR_and_miracle_scores)
 ```
 
-    ##                   ICR       Pos       Neg   Miracle
-    ## SRR5088813 0.93413303 0.6323827 0.6461940 0.9786268
-    ## SRR5088815 0.95142806 0.6132742 0.7249548 0.8459482
-    ## SRR5088819 0.03772541 0.4471174 0.6416505 0.6968239
-    ## SRR5088821 0.92857105 0.6531432 0.7345226 0.8892078
-    ## SRR5088822 0.62441401 0.5737313 0.7152098 0.8021861
-    ## SRR5088824 0.96387160 0.6952714 0.7584005 0.9167601
+    ##                   ICR IE_Specific ID_Specific   Miracle
+    ## SRR5088813 0.93413303   0.6323827   0.6461940 0.9786268
+    ## SRR5088815 0.95142806   0.6132742   0.7249548 0.8459482
+    ## SRR5088819 0.03772541   0.4471174   0.6416505 0.6968239
+    ## SRR5088821 0.92857105   0.6531432   0.7345226 0.8892078
+    ## SRR5088822 0.62441401   0.5737313   0.7152098 0.8021861
+    ## SRR5088824 0.96387160   0.6952714   0.7584005 0.9167601
 
 ``` {.r}
 all(rownames(GSE91061_ICR_and_miracle_scores)==rownames(GSE91061_PRETREATMENT_Response))
@@ -197,13 +197,13 @@ GSE91061_Miracle_Response<-cbind(GSE91061_PRETREATMENT_Response, GSE91061_ICR_an
 head(GSE91061_Miracle_Response)
 ```
 
-    ##                   GSM Treat    Response        ICR       Pos       Neg
-    ## SRR5088813 GSM2420259   Pre Nonresponse 0.93413303 0.6323827 0.6461940
-    ## SRR5088815 GSM2420261   Pre    Response 0.95142806 0.6132742 0.7249548
-    ## SRR5088819 GSM2420265   Pre Nonresponse 0.03772541 0.4471174 0.6416505
-    ## SRR5088821 GSM2420267   Pre    Response 0.92857105 0.6531432 0.7345226
-    ## SRR5088822 GSM2420268   Pre    Response 0.62441401 0.5737313 0.7152098
-    ## SRR5088824 GSM2420270   Pre    Response 0.96387160 0.6952714 0.7584005
+    ##                   GSM Treat    Response        ICR IE_Specific ID_Specific
+    ## SRR5088813 GSM2420259   Pre Nonresponse 0.93413303   0.6323827   0.6461940
+    ## SRR5088815 GSM2420261   Pre    Response 0.95142806   0.6132742   0.7249548
+    ## SRR5088819 GSM2420265   Pre Nonresponse 0.03772541   0.4471174   0.6416505
+    ## SRR5088821 GSM2420267   Pre    Response 0.92857105   0.6531432   0.7345226
+    ## SRR5088822 GSM2420268   Pre    Response 0.62441401   0.5737313   0.7152098
+    ## SRR5088824 GSM2420270   Pre    Response 0.96387160   0.6952714   0.7584005
     ##              Miracle
     ## SRR5088813 0.9786268
     ## SRR5088815 0.8459482
@@ -222,13 +222,13 @@ t.test(Miracle~Response, data=GSE91061_Miracle_Response)
     ##  Welch Two Sample t-test
     ## 
     ## data:  Miracle by Response
-    ## t = -2.3694, df = 46.852, p-value = 0.02199
+    ## t = 2.3694, df = 46.852, p-value = 0.02199
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.116405792 -0.009497369
+    ##  0.009497369 0.116405792
     ## sample estimates:
-    ## mean in group Nonresponse    mean in group Response 
-    ##                 0.8000765                 0.8630281
+    ##    mean in group Response mean in group Nonresponse 
+    ##                 0.8630281                 0.8000765
 
 Visualize Miracle Association with Response in GSE91061:
 
